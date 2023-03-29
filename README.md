@@ -18,4 +18,4 @@ To set all global parameters to the default value. This function will be called 
 
 ## apriori(df):
 The main function in this module. To conduct the apriori algorithm, you need to put a `pandas.Dataframe` object as an argument.</br>
-The function will return a `pandas.Dataframe` object with columns: ['frequent itemset' / 'support' / 'antecedent' / 'consequent' / 'confidence' / 'lift'].
+The function will return a `pandas.Dataframe` object with columns: ['frequent itemset',  'support', 'antecedent', 'consequent', 'confidence', 'lift'].
