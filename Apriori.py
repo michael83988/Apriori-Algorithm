@@ -31,11 +31,11 @@ def for_test(*args):
 
 # ## 需要將.ipynb轉成.py才能夠被其他python檔給import做使用!!
 
-# In[3]:
+# In[54]:
 
 
 
-# In[32]:
+# In[1]:
 
 
 #global variable定義
@@ -49,14 +49,11 @@ frequent_itemset_list = []
 
 # # 建立Apriori Algorithm
 
-# In[50]:
+# In[23]:
 
 
 import pandas as pd
-
-
-
-
+import numpy as np
 
 
 #support的計算 -> bug!
@@ -280,13 +277,15 @@ def apriori(df):
                 #temp_idx = map(tuple, temp_row[j])  'numpy.int64' object is not iterable
                 
                 global itemset_dict
-                if(temp_row[j] not in list(itemset_dict.keys())):
+                if(temp_row[j] not in list(itemset_dict.keys()) and ((type(temp_row[j]) is not (str or object) and not np.isnan(temp_row[j])) or (type(temp_row[j]) is (str or object)))):
                     #idx = temp_row[j]
                     #temp_tuple = tuple([10])
                     #print(type(idx))
                     itemset_dict[tuple([temp_row[j]])] = 1
+                elif(temp_row[j] in list(itemset_dict.keys())):
+                     itemset_dict[tuple([temp_row[j]])] = itemset_dict[tuple([temp_row[j]])] + 1
                 else:
-                    itemset_dict[tuple([temp_row[j]])] = itemset_dict[tuple([temp_row[j]])] + 1
+                    pass
             
         #print('輸入的data初始狀態: ', itemset_dict)    
         print('開始執行apriori algorithm ...')
@@ -337,7 +336,7 @@ def apriori(df):
     
 
 
-# In[53]:
+# In[30]:
 
 
 #for test
@@ -352,13 +351,19 @@ exclude_list = ['period','date']  #columns to exclude
 want_column = [column for column in df.columns.tolist() if column not in exclude_list]
 #print(want_column)
 df_pure = df[want_column]
+
+
+
+clear_param()
+set_param(0.3, 0.6)
+show_param()
 result = apriori(df_pure)
 result
 #print(result)
 """
 
 
-# In[47]:
+# In[4]:
 
 
 #顯示當前參數
